@@ -92,7 +92,7 @@ const config: ExpoConfig = {
 		favicon: './assets/favicon.png'
 	},
 	extra: {
-		eas: { projectId: 'edb75ccd-71ac-4934-9147-baf1c7f2b068' },
+		// eas: { projectId: 'edb75ccd-71ac-4934-9147-baf1c7f2b068' },
 		DEBUG: process?.env?.DEBUG,
 		APP_VARIANT: _appVariant,
 		NODE_ENV: process?.env?.NODE_ENV,
