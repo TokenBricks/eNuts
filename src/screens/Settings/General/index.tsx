@@ -1,5 +1,6 @@
 import { LanguageIcon, PaletteIcon } from '@comps/Icons'
 import Screen from '@comps/Screen'
+import {  highlight as hi } from '@styles'
 import type { TGeneralSettingsPageProps } from '@model/nav'
 import BottomNav from '@nav/BottomNav'
 import { useThemeContext } from '@src/context/Theme'
@@ -12,7 +13,7 @@ import SettingsMenuItem from '../MenuItem'
 
 export default function GeneralSettings({ navigation, route }: TGeneralSettingsPageProps) {
 	const { t } = useTranslation([NS.topNav])
-	const { color } = useThemeContext()
+	const { color, highlight } = useThemeContext()
 	return (
 		<Screen
 			screenName={t('general')}
@@ -23,7 +24,7 @@ export default function GeneralSettings({ navigation, route }: TGeneralSettingsP
 				<SettingsMenuItem
 					txt={t('display', { ns: NS.topNav })}
 					txtColor={color.TEXT}
-					icon={<PaletteIcon color={color.TEXT} />}
+					icon={<PaletteIcon width={18} height={18} color={hi[highlight]} />}
 					onPress={() => navigation.navigate('Display settings')}
 					hasSeparator
 					hasChevron
@@ -31,7 +32,7 @@ export default function GeneralSettings({ navigation, route }: TGeneralSettingsP
 				<SettingsMenuItem
 					txt={t('language', { ns: NS.topNav })}
 					txtColor={color.TEXT}
-					icon={<LanguageIcon color={color.TEXT} />}
+					icon={<LanguageIcon width={18} height={18} color={hi[highlight]} />}
 					onPress={() => navigation.navigate('Language settings')}
 					// hasSeparator
 					hasChevron

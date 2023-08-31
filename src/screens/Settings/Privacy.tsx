@@ -42,7 +42,7 @@ export default function PrivacySettings({ navigation, route }: TPrivacySettingsP
 			withBackBtn
 			handlePress={() => navigation.goBack()}
 		>
-			<Text style={[styles.subHeader, { color: color.TEXT }]}>
+			<Text style={[styles.subHeader, { color: color.TEXT, paddingTop:20 }]}>
 				{t('general')}
 			</Text>
 			<View style={[globals(color).wrapContainer, { paddingVertical: isIOS ? 18 : 10 }]}>

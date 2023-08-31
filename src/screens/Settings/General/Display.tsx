@@ -21,7 +21,7 @@ export default function DisplaySettings({ navigation, route }: TDisplaySettingsP
 			withBackBtn
 			handlePress={() => navigation.goBack()}
 		>
-			<ScrollView style={{ width: '100%', marginBottom: 60 + insets.bottom }} showsVerticalScrollIndicator={false}>
+			<ScrollView style={{ width: '100%', marginBottom: 60 + insets.bottom, paddingTop: 20 }} showsVerticalScrollIndicator={false}>
 				<Text style={[styles.subHeader, { color: color.TEXT }]}>
 					Theme
 				</Text>

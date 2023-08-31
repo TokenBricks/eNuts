@@ -12,7 +12,7 @@ import { NS } from '@src/i18n'
 import { dropAllData } from '@src/storage/dev'
 import { historyStore, store } from '@store'
 import { STORE_KEYS } from '@store/consts'
-import { globals, mainColors } from '@styles'
+import {  globals, highlight as hi , mainColors } from '@styles'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { StyleSheet, Text, View } from 'react-native'
@@ -21,7 +21,7 @@ import SettingsMenuItem from './MenuItem'
 
 export default function Settings({ navigation, route }: TSettingsPageProps) {
 	const { t } = useTranslation([NS.common])
-	const { color } = useThemeContext()
+	const { color,highlight } = useThemeContext()
 	const { openPromptAutoClose } = usePromptContext()
 	const [confirm, setConfirm] = useState(false)
 	const [confirmReset, setConfirmReset] = useState(false)
@@ -49,7 +49,7 @@ export default function Settings({ navigation, route }: TSettingsPageProps) {
 				<SettingsMenuItem
 					txt={t('general', { ns: NS.topNav })}
 					txtColor={color.TEXT}
-					icon={<HamburgerIcon color={color.TEXT} />}
+					icon={<HamburgerIcon width={18} height={18} color={hi[highlight]} />}
 					onPress={() => navigation.navigate('General settings')}
 					hasSeparator
 					hasChevron
@@ -57,7 +57,7 @@ export default function Settings({ navigation, route }: TSettingsPageProps) {
 				<SettingsMenuItem
 					txt={t('mintSettings', { ns: NS.topNav })}
 					txtColor={color.TEXT}
-					icon={<MintBoardIcon color={color.TEXT} />}
+					icon={<MintBoardIcon width={18} height={18} color={hi[highlight]} />}
 					onPress={() => navigation.navigate('mints')}
 					hasSeparator
 					hasChevron
@@ -65,7 +65,7 @@ export default function Settings({ navigation, route }: TSettingsPageProps) {
 				<SettingsMenuItem
 					txt={t('security', { ns: NS.topNav })}
 					txtColor={color.TEXT}
-					icon={<LockIcon color={color.TEXT} />}
+					icon={<LockIcon width={18} height={18} color={hi[highlight]} />}
 					onPress={() => navigation.navigate('Security settings')}
 					hasSeparator
 					hasChevron
@@ -73,7 +73,7 @@ export default function Settings({ navigation, route }: TSettingsPageProps) {
 				<SettingsMenuItem
 					txt={t('privacy', { ns: NS.topNav })}
 					txtColor={color.TEXT}
-					icon={<EyeClosedIcon color={color.TEXT} />}
+					icon={<EyeClosedIcon width={18} height={18} color={hi[highlight]} />}
 					onPress={() => navigation.navigate('Privacy settings')}
 					hasSeparator
 					hasChevron
@@ -81,7 +81,7 @@ export default function Settings({ navigation, route }: TSettingsPageProps) {
 				<SettingsMenuItem
 					txt={t('about', { ns: NS.topNav })}
 					txtColor={color.TEXT}
-					icon={<AboutIcon color={color.TEXT} />}
+					icon={<AboutIcon width={18} height={18} color={hi[highlight]} />}
 					onPress={() => navigation.navigate('About settings')}
 					hasSeparator
 					hasChevron

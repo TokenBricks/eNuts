@@ -20,7 +20,9 @@ export default function SettingsMenuItem({ txt, txtColor, icon, onPress, hasSepa
 				onPress={onPress}
 			>
 				<View style={styles.setting}>
-					{icon}
+					<View style={styles.settingIcon}>
+						{icon}
+					</View>
 					<Text style={[styles.settingTxt, { color: txtColor }]}>
 						{txt}
 					</Text>
@@ -29,7 +31,7 @@ export default function SettingsMenuItem({ txt, txtColor, icon, onPress, hasSepa
 					<ChevronRightIcon color={txtColor} />
 				}
 			</TouchableOpacity>
-			{hasSeparator && <Separator style={[{ marginVertical: 10 }]} />}
+			{/* {hasSeparator && <Separator style={[{ marginVertical: 10 }]} />} */}
 		</>
 	)
 }
@@ -39,7 +41,7 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 		justifyContent: 'space-between',
 		alignItems: 'center',
-		paddingVertical: 10,
+		paddingVertical: 12,
 	},
 	setting: {
 		flexDirection: 'row',
@@ -48,5 +50,10 @@ const styles = StyleSheet.create({
 	settingTxt: {
 		marginLeft: 15,
 		fontSize: 16,
+	},
+	settingIcon: {
+		backgroundColor: 'rgba(0,0,0,0.03)',
+		borderRadius: 999,
+		padding: 10,
 	},
 })

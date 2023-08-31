@@ -5,7 +5,7 @@ import { highlight, type HighlightKey, mainColors, type Theme } from './colors'
 export const globals = (color: Theme, h?: HighlightKey) => StyleSheet.create({
 	container: {
 		flex: 1,
-		paddingTop: 110,
+		paddingTop:	95,
 		backgroundColor: color.BACKGROUND
 	},
 	txt: {
@@ -50,9 +50,9 @@ export const globals = (color: Theme, h?: HighlightKey) => StyleSheet.create({
 		marginBottom: 40,
 	},
 	wrapContainer: {
-		borderWidth: 1,
-		borderRadius: 20,
-		borderColor: color.BORDER,
+		// borderWidth: 1,
+		// borderRadius: 20,
+		// borderColor: color.BORDER,
 		backgroundColor: color.INPUT_BG,
 		paddingHorizontal: 20,
 	},

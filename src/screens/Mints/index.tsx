@@ -323,7 +323,7 @@ const styles = StyleSheet.create({
 	},
 	topSection: {
 		width: '100%',
-		marginTop: 110,
+		marginTop: 95,
 	},
 	newMint: {
 		position: 'absolute',
