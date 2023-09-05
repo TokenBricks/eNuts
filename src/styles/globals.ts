@@ -53,7 +53,7 @@ export const globals = (color: Theme, h?: HighlightKey) => StyleSheet.create({
 		// borderWidth: 1,
 		// borderRadius: 20,
 		// borderColor: color.BORDER,
-		backgroundColor: color.INPUT_BG,
+		// backgroundColor: color.INPUT_BG,
 		paddingHorizontal: 20,
 	},
 	radioBtn: {

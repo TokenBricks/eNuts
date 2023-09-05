@@ -1,4 +1,4 @@
-import { ChevronRightIcon } from '@comps/Icons'
+import { ChevronRightIcon, LeftArrow, RightArrow } from '@comps/Icons'
 import Txt from '@comps/Txt'
 import type { TContact } from '@model/nostr'
 import { truncateNostrProfileInfo, truncateNpub } from '@nostr/util'
@@ -7,24 +7,31 @@ import { NS } from '@src/i18n'
 import { highlight as hi, mainColors } from '@styles'
 import { nip19 } from 'nostr-tools'
 import { useTranslation } from 'react-i18next'
-import { StyleSheet, TouchableOpacity, View } from 'react-native'
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 
 import ProfilePic from './ProfilePic'
 import Username from './Username'
 
 interface IContactPreviewProps {
-	contact: TContact
-	handleContactPress: () => void
-	handleSend: () => void
-	isFirst: boolean
-	isLast: boolean
-	isPayment?: boolean
+  contact: TContact;
+  handleContactPress: () => void;
+  handleSend: () => void;
+  isFirst: boolean;
+  isLast: boolean;
+  isPayment?: boolean;
 }
 
-export default function ContactPreview({ contact, handleContactPress, handleSend, isFirst, isLast, isPayment }: IContactPreviewProps) {
-	const { t } = useTranslation([NS.common])
-	const { color, highlight } = useThemeContext()
+const COLORS = ['#F0BD47','#3A70FF','#E45252','#708E34','#B17CE6']
 
+export default function ContactPreview({
+	contact,
+	handleContactPress,
+	handleSend,
+	isFirst,
+	isLast,
+	isPayment,
+}: IContactPreviewProps) {
+	const { color } = useThemeContext()
 	return (
 		<TouchableOpacity
 			onPress={() => {
@@ -35,17 +42,24 @@ export default function ContactPreview({ contact, handleContactPress, handleSend
 				handleSend()
 			}}
 			disabled={!isPayment}
-			style={[
-				styles.container, { paddingTop: isFirst ? 10 : 0, paddingBottom: isLast ? 10 : 0 }
-			]}
-		>
-			<TouchableOpacity
-				onPress={handleContactPress}
-				disabled={isPayment}
-				style={styles.colWrap}
-			>
-				<ProfilePic uri={contact[1]?.picture} />
-				{contact[1] ?
+			style={[styles.container]}>
+			<TouchableOpacity onPress={handleContactPress} disabled={isPayment} style={styles.colWrap}>
+				{/* <ProfilePic uri={contact[1]?.picture} /> */}
+				<View
+					style={{
+						width: 40,
+						height: 40,
+						backgroundColor: 'rgba(255, 255, 255, 0.10)',
+						borderRadius: 999,
+						marginRight: 20,
+						display: 'flex',
+						alignItems: 'center',
+						justifyContent: 'center',
+					}}>
+					<Text style={{fontSize:20,color:COLORS[Math.floor(Math.random()*5)]}}>{(contact[1]?.displayName||contact[1]?.display_name)?.[0]}</Text>
+				</View>
+
+				{contact[1] ? (
 					<View>
 						<Username
 							displayName={contact[1].displayName}
@@ -55,30 +69,34 @@ export default function ContactPreview({ contact, handleContactPress, handleSend
 							npub={truncateNpub(nip19.npubEncode(contact[0]))}
 							fontSize={16}
 						/>
-						{contact[1].about?.length > 0 &&
+						{contact[1].about?.length > 0 && (
 							<Txt
 								txt={truncateNostrProfileInfo(contact[1].about)}
 								styles={[{ color: color.TEXT_SECONDARY, fontSize: 14 }]}
 							/>
-						}
+						)}
 					</View>
-					:
+				) : (
 					<Txt txt={truncateNpub(nip19.npubEncode(contact[0]))} styles={[{ fontWeight: '500' }]} />
-				}
-			</TouchableOpacity>
-			{isPayment && contact[1] ?
-				<ChevronRightIcon width={16} height={16} color={color.TEXT} />
-				:
-				!isPayment && contact[1] ?
+				)}
+
+				{isPayment && contact[1] ? (
+					<ChevronRightIcon width={16} height={16} color={color.TEXT} />
+				) : !isPayment && contact[1] ? (
 					<TouchableOpacity
-						style={[styles.sendEcashBtn, { backgroundColor: hi[highlight] }]}
-						onPress={handleSend}
-					>
-						<Txt txt={t('send')} styles={[styles.sendTxt]} />
+						style={{
+							display: 'flex',
+							alignItems: 'center',
+							justifyContent: 'center',
+							marginLeft: 'auto',
+						}}
+						// style={[styles.sendEcashBtn, { backgroundColor: hi[highlight] }]}
+						onPress={handleSend}>
+						<RightArrow width={20} height={20} color="#fff" />
+						{/* <Txt txt=">" styles={[styles.sendTxt]} /> */}
 					</TouchableOpacity>
-					:
-					null
-			}
+				) : null}
+			</TouchableOpacity>
 		</TouchableOpacity>
 	)
 }
@@ -88,12 +106,15 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 		alignItems: 'center',
 		justifyContent: 'space-between',
-		paddingHorizontal: 20,
+		borderRadius: 6,
+		paddingHorizontal: 16,
+		paddingVertical: 12,
+		backgroundColor: 'rgba(255, 255, 255, 0.05)',
 	},
 	colWrap: {
 		flexDirection: 'row',
 		alignItems: 'center',
-		width: '70%'
+		width: '100%',
 	},
 	sendEcashBtn: {
 		paddingHorizontal: 10,
@@ -102,6 +123,14 @@ const styles = StyleSheet.create({
 	},
 	sendTxt: {
 		color: mainColors.WHITE,
-		fontWeight: '500'
-	}
+		fontWeight: '500',
+	},
+	circle: {
+		borderWidth: 1,
+		alignItems: 'center',
+		justifyContent: 'center',
+		marginVertical: 5,
+		marginRight: 20,
+		zIndex: 2,
+	},
 })

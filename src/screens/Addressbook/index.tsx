@@ -368,7 +368,7 @@ export default function AddressbookPage({ navigation, route }: TAddressBookPageP
 										isPayment={route.params?.isMelt || route.params?.isSendEcash}
 									/>
 								)}
-								ItemSeparatorComponent={() => <Separator style={[styles.contactSeparator]} />}
+								ItemSeparatorComponent={() => <View style={{paddingVertical:6}} />}
 							/>
 						</View>
 						:
@@ -454,7 +454,7 @@ const styles = StyleSheet.create({
 	},
 	contactsWrap: {
 		flex: 1,
-		paddingHorizontal: 0,
+		paddingHorizontal: 16,
 	},
 	contactSeparator: {
 		marginLeft: 60,
