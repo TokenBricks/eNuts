@@ -1,6 +1,7 @@
 import Copy from '@comps/Copy'
 import LeaveAppModal from '@comps/LeaveAppModal'
 import Txt from '@comps/Txt'
+import Button from '@comps/ui/Button'
 import { getMintsBalances } from '@db'
 import type { IContactPageProps } from '@model/nav'
 import TopNav from '@nav/TopNav'
@@ -80,19 +81,11 @@ export default function ContactPage({ navigation, route }: IContactPageProps) {
 			/>
 			{/* Contact pictures overview */}
 			<View style={{ zIndex: 5 }}>
-				<ProfileBanner uri={contact?.banner} isUser={isUser} />
+				{/* <ProfileBanner uri={contact?.banner} isUser={isUser} /> */}
 				<View style={styles.profilePicContainer}>
-					<ProfilePic uri={contact?.picture} size={100} isUser={isUser} />
-					{!isUser &&
-						<TouchableOpacity
-							style={[styles.sendEcash, { backgroundColor: hi[highlight] }]}
-							onPress={() => void handleSend()}
-						>
-							<Txt txt='Send Ecash' styles={[{ fontWeight: '500', color: mainColors.WHITE }]} />
-						</TouchableOpacity>
-					}
-				</View>
-				<View style={styles.contentWrap}>
+					<View style={{ width: 72, height: 72,marginBottom:20 }}>
+						<ProfilePic uri={contact?.picture} size={72} isUser={isUser} />
+					</View>
 					{/* username */}
 					<Username
 						displayName={contact?.displayName}
@@ -103,7 +96,6 @@ export default function ContactPage({ navigation, route }: IContactPageProps) {
 						fontSize={24}
 					/>
 					{/* npub */}
-
 					<View style={styles.npubWrap}>
 						<Txt
 							// eslint-disable-next-line @typescript-eslint/restrict-template-expressions
@@ -112,6 +104,12 @@ export default function ContactPage({ navigation, route }: IContactPageProps) {
 						/>
 						<Copy txt={isUser ? pubKey.encoded : npub} />
 					</View>
+					{!isUser &&
+						<Button txt='Send Ecash' styles={{marginTop:16}} onPress={() => void handleSend()}></Button>
+					}
+				</View>
+				<View style={styles.contentWrap}>
+					<Txt txt="Contacts" styles={[{color:mainColors.WHITE,fontWeight:'600'}]}></Txt>
 					{/* tags */}
 					<View style={styles.tagsWrap}>
 						<NIP05Verified nip05={contact?.nip05} onPress={handlePress} />
@@ -119,8 +117,14 @@ export default function ContactPage({ navigation, route }: IContactPageProps) {
 						<Lud lud16={contact?.lud16} lud06={contact?.lud06} onPress={handlePress} />
 					</View>
 					{/* about */}
+				
 					{contact?.about && contact.about.length > 0 &&
-						<Txt txt={contact.about} styles={[styles.about]} />
+						<>
+							<Txt txt="Notes" styles={[{color:mainColors.WHITE,fontWeight:'600',marginTop:24}]}></Txt>
+							<View style={styles.tagsWrap}>
+								<Txt txt={contact.about} styles={[styles.about]} />
+							</View>
+						</>
 					}
 				</View>
 			</View>
@@ -134,10 +138,10 @@ const styles = StyleSheet.create({
 		paddingTop: 100
 	},
 	profilePicContainer: {
-		flexDirection: 'row',
-		alignItems: 'flex-end',
-		justifyContent: 'space-between',
-		marginTop: -50,
+		flexDirection: 'column',
+		alignItems: 'center',
+		// justifyContent: 'space-between',
+		// marginTop: -50,
 		paddingHorizontal: 20,
 	},
 	sendEcash: {
@@ -149,6 +153,7 @@ const styles = StyleSheet.create({
 	contentWrap: {
 		paddingTop: 10,
 		paddingHorizontal: 20,
+		marginTop: 20,
 	},
 	npubWrap: {
 		flexDirection: 'row',
@@ -156,11 +161,17 @@ const styles = StyleSheet.create({
 	},
 	npub: {
 		fontSize: 14,
+		color: mainColors.WHITE,
 	},
 	tagsWrap: {
+		backgroundColor: 'rgba(255, 255, 255, 0.05)',
+		borderRadius: 6,
+		padding: 16,
 		marginTop: 20,
+		display: 'flex',
+		gap: 12
 	},
 	about: {
-		marginTop: 20,
+		color: mainColors.WHITE,
 	},
 })

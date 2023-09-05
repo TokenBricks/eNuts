@@ -45,6 +45,7 @@ export default function Username({ displayName, display_name, username, name, np
 
 const styles = StyleSheet.create({
 	username: {
-		fontWeight: '500'
+		fontWeight: '500',
+		color: '#fff'
 	}
 })

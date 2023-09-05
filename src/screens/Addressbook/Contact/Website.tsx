@@ -1,7 +1,7 @@
 import { LinkIcon } from '@comps/Icons'
 import Txt from '@comps/Txt'
 import { useThemeContext } from '@src/context/Theme'
-import { highlight as hi } from '@styles'
+import { mainColors } from '@styles'
 import { StyleSheet, TouchableOpacity, View } from 'react-native'
 
 export default function Website({ website, onPress }: { website?: string, onPress: (url: string) => void }) {
@@ -12,10 +12,10 @@ export default function Website({ website, onPress }: { website?: string, onPres
 		site?.length ?
 			<View style={styles.infoWrap}>
 				<View style={styles.iconWrap}>
-					<LinkIcon width={20} height={20} color={hi[highlight]} />
+					<LinkIcon width={20} height={20} color={mainColors.WHITE} />
 				</View>
 				<TouchableOpacity onPress={() => onPress(navSite || '')}>
-					<Txt txt={site} styles={[{ color: hi[highlight], paddingBottom: 3 }]} />
+					<Txt txt={site} styles={[{ color: mainColors.WHITE, paddingBottom: 3 }]} />
 				</TouchableOpacity>
 			</View>
 			:

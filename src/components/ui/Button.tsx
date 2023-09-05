@@ -40,7 +40,7 @@ export default function Button({
 			disabled={disabled}
 			style={[
 				styles.touchableOpacity,
-				{ backgroundColor: hi[highlight], padding: 20 },
+				{ backgroundColor: hi[highlight], paddingHorizontal: 24, paddingVertical: 12 },
 				border ? { borderWidth: 1, borderColor: mainColors.WHITE } : {},
 				filled ? { backgroundColor: mainColors.WHITE } : {},
 				outlined

@@ -1,23 +1,21 @@
 import { ZapIcon } from '@comps/Icons'
 import Txt from '@comps/Txt'
-import { useThemeContext } from '@src/context/Theme'
-import { highlight as hi } from '@styles'
+import { mainColors } from '@styles'
 import { StyleSheet, TouchableOpacity, View } from 'react-native'
 
 export default function Lud({ lud16, lud06, onPress }: { lud16?: string, lud06?: string, onPress: (url: string) => void }) {
-	const { highlight } = useThemeContext()
 	// TODO add zaps: `lightning:${paymentRequest}`
 	return (
 		<>
 			{lud16 || lud06 ?
 				<View style={styles.infoWrap}>
 					<View style={styles.iconWrap}>
-						<ZapIcon width={22} height={22} color={hi[highlight]} />
+						<ZapIcon width={22} height={22} color={mainColors.WHITE} />
 					</View>
-					<TouchableOpacity onPress={() => onPress('lightning://')}>
+					<TouchableOpacity style={{flex:1 ,flexGrow:1 }} onPress={() => onPress('lightning://')}>
 						<Txt
 							txt={(lud16 || lud06)?.substring(0, 50) || ''}
-							styles={[{ color: hi[highlight], paddingBottom: 3 }]}
+							styles={[{ color: mainColors.WHITE, paddingBottom: 3 }]}
 						/>
 					</TouchableOpacity>
 				</View>
