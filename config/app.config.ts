@@ -61,9 +61,10 @@ const config: ExpoConfig = {
 	icon: './assets/app-icon-all.png',
 	userInterfaceStyle: 'automatic',
 	splash: {
-		image: './assets/splash.png',
+		// image: './assets/splash.png',
+		image: './assets/first-loading.png',
 		resizeMode: 'contain',
-		backgroundColor: '#5DB075'
+		backgroundColor: '#000'
 	},
 	assetBundlePatterns: ['**/*'],
 	plugins: [

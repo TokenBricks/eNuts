@@ -23,7 +23,7 @@ export default function Empty({ txt, hasOk, pressable, onPress, nav }: IEmptyPro
 			<Image
 				style={styles.img}
 				// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-				source={require('@assets/mixed_forest.png')}
+				source={require('@assets/bg-address-book.png')}
 			/>
 			{pressable && onPress ?
 				<TouchableOpacity>

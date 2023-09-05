@@ -1,13 +1,13 @@
 import { getPreferences, setPreferences } from '@db'
 import { l } from '@log'
 import type { IPreferences } from '@model'
-import { dark, HighlightKey, light , lightTheme } from '@styles'
+import { dark, HighlightKey, light, lightTheme  } from '@styles'
 import * as SplashScreen from 'expo-splash-screen'
 import { createContext, useContext, useEffect, useState } from 'react'
 import { Appearance } from 'react-native'
 
 const useTheme = () => {
-	const [theme, setTheme] = useState('Light')
+	const [theme, setTheme] = useState('Dark')
 	const [color, setColors] = useState(theme === 'Light' ? light.custom : dark.custom)
 	const [pref, setPref] = useState<IPreferences | undefined>()
 	const [highlight, setHighlight] = useState<HighlightKey>('Default')
@@ -42,7 +42,8 @@ const useTheme = () => {
 				const deviceTheme = Appearance.getColorScheme()
 				const darkmode = prefsDB.hasPref ? prefsDB.darkmode : deviceTheme === 'dark'
 				setPref({ ...prefsDB, darkmode })
-				setTheme(darkmode ? 'Dark' : 'Light')
+				// setTheme(darkmode ? 'Dark' : 'Light')
+				setTheme('Dark')
 				setHighlight(prefsDB.theme)
 			} catch (e) {
 				l(e)
