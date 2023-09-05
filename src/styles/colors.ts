@@ -10,7 +10,7 @@ export enum Colors {
 	L_Input_Bg = '#F6F6F6',
 	L_Border = '#D8D8D8',
 	// dark theme
-	D_Background = '#202124',
+	D_Background = '#1D1D1D',
 	D_Drawer = '#303134',
 	D_Text = '#BDC1C6',
 	D_Text_Secondary = '#999DA2',
@@ -55,7 +55,7 @@ export const dark: ExtendedTheme = {
 
 // highlight theme colors
 export enum H_Colors {
-	Default = '#5DB075',
+	Default = '#F0BD47',
 	Bitcoin = '#FF9900',
 	Nuts = '#B37436',
 	Nostr = '#B780FF',
@@ -81,7 +81,7 @@ export const highlight: { [key in HighlightKey]: H_Colors } = {
 
 // PIN buttons colors based on highlight theme
 const pinpadBg = {
-	Default: '#73BD88',
+	Default: '#FF8000',
 	Bitcoin: '#FFB340',
 	Nuts: '#AB8763',
 	Nostr: '#CDA9FC',
@@ -104,7 +104,8 @@ export enum mainColors {
 	WARN = '#FF9900',
 	ERROR = '#FF6666',
 	// colors
-	BLACK = '#000',
+	// BLACK = '#000',
+	BLACK = '#1D1D1D',
 	WHITE = '#FAFAFA',
 	GREY = '#999',
 	BLUE = '#027DFF',

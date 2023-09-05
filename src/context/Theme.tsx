@@ -79,7 +79,7 @@ const ThemeContext = createContext<useThemeType>({
 		theme: 'Default',
 		hasPref: false
 	},
-	theme: 'Light',
+	theme: 'Dark',
 	setTheme: () => l(''),
 	color: lightTheme,
 	highlight: 'Default',

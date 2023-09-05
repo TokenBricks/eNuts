@@ -24,7 +24,7 @@ import { routingInstrumentation } from '@util/crashReporting'
 import { runRequestTokenLoop } from '@wallet'
 import * as SplashScreen from 'expo-splash-screen'
 import { StatusBar } from 'expo-status-bar'
-import { NativeBaseProvider } from 'native-base'
+// import { NativeBaseProvider } from 'native-base'
 import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { AppState } from 'react-native'
@@ -196,8 +196,8 @@ function _App() {
 	// to ensure all initial DB and store requests are done before displaying content
 	return (
 		<ThemeProvider>
-			<NativeBaseProvider>
-				<PinCtx.Provider value={pinData}>
+			{/* <NativeBaseProvider> */}
+			<PinCtx.Provider value={pinData}>
 				<PrivacyProvider>
 					<NostrProvider>
 						<FocusClaimProvider>
@@ -219,8 +219,8 @@ function _App() {
 						</FocusClaimProvider>
 					</NostrProvider>
 				</PrivacyProvider>
-				</PinCtx.Provider>
-			</NativeBaseProvider>
+			</PinCtx.Provider>
+			{/* </NativeBaseProvider> */}
 		</ThemeProvider>
 	)
 }

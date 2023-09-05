@@ -1,17 +1,19 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import Balance from '@comps/Balance'
 import { IconBtn } from '@comps/Button'
+import History from '@comps/containers/History'
 import useLoading from '@comps/hooks/Loading'
 import useCashuToken from '@comps/hooks/Token'
-import { AboutIcon, ChevronRightIcon, PlusIcon, ReceiveIcon, ScanQRIcon, SendIcon } from '@comps/Icons'
+import { AboutIcon, ReceiveIcon, ScanQRIcon, SendIcon, SettingsIcon } from '@comps/Icons'
 import InitialModal from '@comps/InitialModal'
 import Txt from '@comps/Txt'
+import Button from '@comps/ui/Button'
 import { _testmintUrl } from '@consts'
 import { addMint, getBalance, getMintsBalances, getMintsUrls, hasMints } from '@db'
 import { l } from '@log'
 import OptsModal from '@modal/OptsModal'
 import TrustMintModal from '@modal/TrustMint'
-import type { TDashboardPageProps } from '@model/nav'
+import type { TDashboardPageProps, TRouteString } from '@model/nav'
 import BottomNav from '@nav/BottomNav'
 import { useFocusClaimContext } from '@src/context/FocusClaim'
 import { useInitialURL } from '@src/context/Linking'
@@ -24,12 +26,12 @@ import { STORE_KEYS } from '@store/consts'
 import { addToHistory } from '@store/latestHistoryEntries'
 import { getCustomMintNames, saveDefaultOnInit } from '@store/mintStore'
 import { highlight as hi, mainColors } from '@styles'
-import { getStrFromClipboard, hasTrustedMint, isCashuToken, isErr } from '@util'
+import { getStrFromClipboard, hasTrustedMint, isCashuToken, isStr } from '@util'
 import { claimToken } from '@wallet'
 import { getTokenInfo } from '@wallet/proofs'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { StyleSheet, TouchableOpacity, View } from 'react-native'
+import { Image,StyleSheet, Text,TouchableOpacity, View } from 'react-native'
 
 export default function Dashboard({ navigation, route }: TDashboardPageProps) {
 	const { t } = useTranslation([NS.common])
@@ -173,6 +175,18 @@ export default function Dashboard({ navigation, route }: TDashboardPageProps) {
 		await handleTokenSubmit(clipboard)
 	}
 
+
+	const handleNav = async (routeStr: TRouteString) => {
+		// handle nostr explainer for addressbook
+		if (routeStr === 'Address book') {
+			// check if explainer has been viewed, else navigate to screen
+			const nostrExplainer = await store.get(STORE_KEYS.nostrexplainer)
+			navigation.navigate(!isStr(nostrExplainer) || !nostrExplainer.length ? 'nostr onboarding' : routeStr)
+			return
+		}
+		navigation.navigate(routeStr)
+	}
+
 	// mint/melt/send ecash buttons
 	const handleOptsBtnPress = async ({ isMelt, isSendEcash }: { isMelt?: boolean, isSendEcash?: boolean }) => {
 		const { mintsWithBal, mints } = await getMintsForPayment()
@@ -257,14 +271,15 @@ export default function Dashboard({ navigation, route }: TDashboardPageProps) {
 		return focusHandler
 	}, [navigation])
 
+
+
 	return (
-		<View style={[styles.container, { backgroundColor: color.BACKGROUND }]}>
+		<View style={[styles.container, styles.bgBlack]}>
 			{/* Balance, Disclaimer & History */}
-			<Balance balance={balance} nav={navigation} />
+			{/* <Balance balance={balance} nav={navigation} /> */}
 			{/* Receive/send/mints buttons */}
-			<View style={[styles.actionWrap, { paddingHorizontal: 30 }]}>
-				{/* Send button or add first mint */}
-				{(hasMint && balance > 0) ?
+			{/* <View style={[styles.actionWrap, { paddingHorizontal: !hasMint || balance < 1 ? 75 : 30 }]}>
+				{(hasMint && balance > 0) &&
 					<ActionBtn
 						icon={<SendIcon width={32} height={32} color={hi[highlight]} />}
 						txt={t('send', { ns: NS.wallet })}
@@ -291,9 +306,9 @@ export default function Dashboard({ navigation, route }: TDashboardPageProps) {
 					color={hi[highlight]}
 					onPress={() => setModal({ ...modal, receiveOpts: true })}
 				/>
-			</View>
-			{/* beta warning */}
-			<View style={styles.hintWrap}>
+			</View> */}
+			{/* scan QR */}
+			{/* <View style={styles.hintWrap}>
 				<TouchableOpacity
 					onPress={() => navigation.navigate('disclaimer')}
 					style={styles.betaHint}
@@ -302,10 +317,56 @@ export default function Dashboard({ navigation, route }: TDashboardPageProps) {
 					<Txt txt={t('enutsBeta')} styles={[{ color: mainColors.WARN, marginHorizontal: 10 }]} />
 					<ChevronRightIcon color={mainColors.WARN} />
 				</TouchableOpacity>
-			</View>
+			</View> */}
 			{/* Bottom nav icons */}
-			<BottomNav navigation={navigation} route={route} />
+			{/* <BottomNav navigation={navigation} route={route} /> */}
 			{/* Question modal for mint trusting */}
+			<View style={styles.header}>
+				{/* <View style={styles.logo} /> */}
+				<Image
+					// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+					source={require('@assets/logo.png')}
+					style={styles.logo} />
+				<View style={{ marginLeft: 'auto' }}>
+					<TouchableOpacity
+						accessibilityRole='button'
+						onPress={() => navigation.navigate('qr scan', { mint: undefined })}
+					>
+						<ScanQRIcon width={24} height={24} color={mainColors.WHITE} />
+					</TouchableOpacity>
+				</View>
+				<View style={{ marginLeft: 8 }}>
+					<TouchableOpacity
+						accessibilityRole='button'
+						onPress={() => void handleNav('Settings')}
+					><SettingsIcon width={24} height={24} color={mainColors.WHITE} /></TouchableOpacity>
+					
+				</View>
+			</View>
+			<View style={styles.section}>
+				<View style={{display:'flex',flexDirection:'column',alignItems:'center',paddingTop:60}}>
+					<Txt txt='Available balance' styles={[{ color: mainColors.WHITE }]} />
+					<View style={{display:'flex', flexDirection:'row',alignItems:'flex-end',marginTop:12,gap:10}}>
+						<Txt txt='500' styles={[{color:mainColors.WHITE,fontSize:40,fontWeight:'600'}]} />
+						<Txt txt='sats' styles={[{color:mainColors.WHITE,fontSize:24}]} />
+					</View>
+					<View  style={{display:'flex',flexDirection:'row',gap:20,marginTop:40,paddingHorizontal:24}}>
+						<Button txt='Receive' onPress={() => setModal({ ...modal, receiveOpts: true })} styles={{flex:1}}></Button>
+						<Button txt='Send' onPress={() => setModal({ ...modal, sendOpts: true })} styles={{flex:1}}></Button>
+					</View>
+				</View>
+				<View style={{marginTop:40}}>
+					<Txt txt='Recent Transaction' styles={[{ color: mainColors.WHITE ,fontSize:20,fontWeight:'600'}]} />
+					<View style={{marginTop:16}}>
+						<History />
+					</View>
+				</View>
+			</View>
+			<View style={styles.footer}>
+				<BottomNav navigation={navigation} route={route} />
+			</View>
+
+
 			{trustModal &&
 				<TrustMintModal
 					loading={loading}
@@ -375,8 +436,33 @@ function ActionBtn({ icon, onPress, txt, color, disabled }: IActionBtnsProps) {
 }
 
 const styles = StyleSheet.create({
+	bgBlack: {
+		backgroundColor: mainColors.BLACK
+	},
+	header:{
+		display: 'flex',
+		flexDirection: 'row',
+		paddingHorizontal:16,
+	},
+	section: {
+		// backgroundColor: mainColors.WHITE,	
+		display: 'flex',
+		flex: 1,
+		paddingHorizontal:16,
+		// height: '100%'
+	},
+	footer: {
+		// padding: 40,
+		// backgroundColor: 'rgba(255,255,255,0.08)',
+		// opacity:0.08 
+	},
+	logo: {
+		width: 70,
+		height: 24,
+	},
 	container: {
 		flex: 1,
+		paddingTop: 80,
 	},
 	actionWrap: {
 		flexDirection: 'row',
@@ -401,10 +487,6 @@ const styles = StyleSheet.create({
 	betaHint: {
 		flexDirection: 'row',
 		alignItems: 'center',
-		padding: 10,
-		borderWidth: 1,
-		borderStyle: 'dashed',
-		borderColor: mainColors.WARN,
-		borderRadius: 50,
-	}
+		padding: 10
+	},
 })

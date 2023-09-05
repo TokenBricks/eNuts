@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
 		borderRadius: 50,
 	},
 	btnTxt: {
-		color: mainColors.WHITE,
+		color: mainColors.BLACK,
 		textAlign: 'center',
 		fontSize: 16,
 		fontWeight: '500'

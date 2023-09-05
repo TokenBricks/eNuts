@@ -1,4 +1,4 @@
-import { BookIcon, SettingsIcon, WalletIcon } from '@comps/Icons'
+import { BookIcon, HistoryIcon, WalletIcon } from '@comps/Icons'
 import Txt from '@comps/Txt'
 import { isIOS } from '@consts'
 import type { TBottomNavProps, TRouteString } from '@model/nav'
@@ -13,7 +13,7 @@ import { StyleSheet, TouchableOpacity, View } from 'react-native'
 
 export default function BottomNav({ navigation, route }: TBottomNavProps) {
 	const { t } = useTranslation([NS.topNav])
-	const { color, highlight } = useThemeContext()
+	const { highlight } = useThemeContext()
 
 	const handleNav = async (routeStr: TRouteString) => {
 		// handle nostr explainer for addressbook
@@ -36,18 +36,32 @@ export default function BottomNav({ navigation, route }: TBottomNavProps) {
 		route.name === 'Privacy settings'
 
 	return (
-		<View style={[styles.bottomNav, { backgroundColor: color.BACKGROUND, paddingBottom: isIOS ? 40 : 10 }]}>
+		<View style={[styles.bottomNav, { backgroundColor: 'rgba(255,255,255,0.08)', paddingBottom: isIOS ? 40 : 10 }]}>
 			<TouchableOpacity
 				style={styles.navIcon}
 				onPress={() => void handleNav('dashboard')}
 				disabled={isWalletRelatedScreen}
 			>
-				<WalletIcon width={28} height={28} color={isWalletRelatedScreen ? hi[highlight] : color.TEXT} />
+				<WalletIcon width={28} height={28} color={isWalletRelatedScreen ? hi[highlight] : 'rgba(255,255,255,0.6)'} />
 				<Txt
 					txt='Wallet'
 					styles={[styles.iconTxt, {
-						color: isWalletRelatedScreen ? hi[highlight] : color.TEXT,
+						color: isWalletRelatedScreen ? hi[highlight] : 'rgba(255,255,255,0.6)',
 						fontWeight: isWalletRelatedScreen ? '500' : '400'
+					}]}
+				/>
+			</TouchableOpacity>
+			<TouchableOpacity
+				style={styles.navIcon}
+				onPress={() => navigation?.navigate('history')}
+				disabled={isSettingsRelatedScreen}
+			>
+				<HistoryIcon width={28} height={28} color={isSettingsRelatedScreen ? hi[highlight] : 'rgba(255,255,255,0.6)'} />
+				<Txt
+					txt="Transactions"
+					styles={[styles.iconTxt, {
+						color: isSettingsRelatedScreen ? hi[highlight] : 'rgba(255,255,255,0.6)',
+						fontWeight: isSettingsRelatedScreen ? '500' : '400'
 					}]}
 				/>
 			</TouchableOpacity>
@@ -56,29 +70,15 @@ export default function BottomNav({ navigation, route }: TBottomNavProps) {
 				onPress={() => void handleNav('Address book')}
 				disabled={route.name === 'Address book'}
 			>
-				<BookIcon width={28} height={28} color={route.name === 'Address book' ? hi[highlight] : color.TEXT} />
+				<BookIcon width={28} height={28} color={route.name === 'Address book' ? hi[highlight] : 'rgba(255,255,255,0.6)'} />
 				<Txt
 					txt={t('contacts', { ns: NS.bottomNav })}
 					styles={[
 						styles.iconTxt, {
-							color: route.name === 'Address book' ? hi[highlight] : color.TEXT,
+							color: route.name === 'Address book' ? hi[highlight] : 'rgba(255,255,255,0.6)',
 							fontWeight: route.name === 'Address book' ? '500' : '400'
 						}
 					]}
-				/>
-			</TouchableOpacity>
-			<TouchableOpacity
-				style={styles.navIcon}
-				onPress={() => void handleNav('Settings')}
-				disabled={isSettingsRelatedScreen}
-			>
-				<SettingsIcon width={28} height={28} color={isSettingsRelatedScreen ? hi[highlight] : color.TEXT} />
-				<Txt
-					txt={t('settings')}
-					styles={[styles.iconTxt, {
-						color: isSettingsRelatedScreen ? hi[highlight] : color.TEXT,
-						fontWeight: isSettingsRelatedScreen ? '500' : '400'
-					}]}
 				/>
 			</TouchableOpacity>
 		</View>
