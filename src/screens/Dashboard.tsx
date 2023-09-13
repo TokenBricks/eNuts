@@ -347,7 +347,7 @@ export default function Dashboard({ navigation, route }: TDashboardPageProps) {
 				<View style={{display:'flex',flexDirection:'column',alignItems:'center',paddingTop:60}}>
 					<Txt txt='Available balance' styles={[{ color: mainColors.WHITE }]} />
 					<View style={{display:'flex', flexDirection:'row',alignItems:'flex-end',marginTop:12,gap:10}}>
-						<Txt txt='500' styles={[{color:mainColors.WHITE,fontSize:40,fontWeight:'600'}]} />
+						<Txt txt={balance.toString()} styles={[{color:mainColors.WHITE,fontSize:40,fontWeight:'600'}]} />
 						<Txt txt='sats' styles={[{color:mainColors.WHITE,fontSize:24}]} />
 					</View>
 					<View  style={{display:'flex',flexDirection:'row',gap:20,marginTop:40,paddingHorizontal:24}}>
