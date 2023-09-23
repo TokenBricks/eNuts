@@ -31,7 +31,7 @@ export default function ContactPreview({
 	isLast,
 	isPayment,
 }: IContactPreviewProps) {
-	const { color } = useThemeContext()
+	const { color,highlight } = useThemeContext()
 	return (
 		<TouchableOpacity
 			onPress={() => {
@@ -84,16 +84,10 @@ export default function ContactPreview({
 					<ChevronRightIcon width={16} height={16} color={color.TEXT} />
 				) : !isPayment && contact[1] ? (
 					<TouchableOpacity
-						style={{
-							display: 'flex',
-							alignItems: 'center',
-							justifyContent: 'center',
-							marginLeft: 'auto',
-						}}
-						// style={[styles.sendEcashBtn, { backgroundColor: hi[highlight] }]}
-						onPress={handleSend}>
-						<RightArrow width={20} height={20} color="#fff" />
-						{/* <Txt txt=">" styles={[styles.sendTxt]} /> */}
+						style={[styles.sendEcashBtn, { backgroundColor: hi[highlight], marginLeft:'auto' }]}
+						onPress={handleSend}
+					>
+						<Txt txt='send' styles={[styles.sendTxt]} />
 					</TouchableOpacity>
 				) : null}
 			</TouchableOpacity>
