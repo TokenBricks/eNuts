@@ -325,7 +325,7 @@ export default function Dashboard({ navigation, route }: TDashboardPageProps) {
 				{/* <View style={styles.logo} /> */}
 				<Image
 					// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-					source={require('@assets/logo.png')}
+					source={require('@assets/CashuNest_Logo.png')}
 					style={styles.logo} />
 				<View style={{ marginLeft: 'auto' }}>
 					<TouchableOpacity
@@ -457,7 +457,7 @@ const styles = StyleSheet.create({
 		// opacity:0.08 
 	},
 	logo: {
-		width: 70,
+		width: 110,
 		height: 24,
 	},
 	container: {

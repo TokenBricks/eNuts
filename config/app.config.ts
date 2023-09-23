@@ -62,9 +62,9 @@ const config: ExpoConfig = {
 	userInterfaceStyle: 'automatic',
 	splash: {
 		// image: './assets/splash.png',
-		image: './assets/first-loading.png',
+		image: './assets/CashuNest_App.png',
 		resizeMode: 'contain',
-		backgroundColor: '#000'
+		backgroundColor: '#1d1d1d'
 	},
 	assetBundlePatterns: ['**/*'],
 	plugins: [
